@@ -59,7 +59,7 @@ class GoPiggy(pigo.Pigo):
             self.encR(4)
             self.encB(2)
             self.encL(14)
-            self.encR(15)
+            self.encR(14)
             self.encB(3)
             self.encL(10)
             self.encF(1)
