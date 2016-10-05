@@ -51,29 +51,21 @@ class GoPiggy(pigo.Pigo):
             print('Speed is set to: ' + str(x))
             servo(20)
             set_speed(x)
-            self.encB(15)
+            self.encB(2)
+            self.encR(14)
+            self.encL(14)
+            self.encR(18)
+            self.encL(12)
             self.encR(4)
-            self.encR(4)
-            self.encL(8)
-            self.encL(2)
-            self.encR(8)
-            self.encB(5)
-            self.encL(4)
-            self.encR(5)
+            self.encB(2)
+            self.encL(14)
+            self.encR(15)
             self.encB(3)
+            self.encL(10)
             self.encF(1)
-            self.encB(4)
+            self.encB(2)
             servo(120)
             time.sleep(.1)
-
-        # Get data from the sensor
-        proximity = vcnl.read_proximity()
-        # If the threshold is crossed, start the alarm
-        if (proximity > 3000):
-            GPIO.output(gpio_pin, True)
-            os.system("aplay alarm_sound.wav")
-            GPIO.output(gpio_pin, False)
-        time.sleep(0.1)
 
     # AUTONOMOUS DRIVING
     def nav(self):
