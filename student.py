@@ -48,14 +48,16 @@ class GoPiggy(pigo.Pigo):
         ##### WRITE YOUR FIRST PROJECT HERE
         print ("Is it safe to dance?")
         print(self.isClear())
+        a=0
+        x=4
         if self.isClear():
             for x in range(100,200, 25):
                 print('Speed is set to: ' + str(x))
                 servo(20)
                 set_speed(x)
-                self.encB(12)
-                self.encR(14)
-                self.encL(14)
+                self.encB(5)
+                self.encR(5)
+                self.encL(5)
                 self.encR(8)
                 self.encL(2)
                 self.encR(4)
