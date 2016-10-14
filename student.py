@@ -90,7 +90,7 @@ class GoPiggy(pigo.Pigo):
             self.encB(1)
             servo(87)
             self.encF(1)
-            self.encR(3)
+            self.encR(5)
             time.sleep(.1)
     # AUTONOMOUS DRIVING
     def nav(self):
