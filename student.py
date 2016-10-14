@@ -46,38 +46,40 @@ class GoPiggy(pigo.Pigo):
     def dance(self):
         print("Piggy dance")
         ##### WRITE YOUR FIRST PROJECT HERE
-        print ("Is it safe to dance?")
-        print(self.isClear())
-        a=0
-        x=4
-        if self.isClear():
-            for x in range(100,200, 25):
-                print('Speed is set to: ' + str(x))
-                servo(87)
-                set_speed(x)
-                self.encF(3)
-                self.encB(8)
-                self.encL(10)
-                servo(20)
-                self.encR(10)
-                servo(120)
-                self.encF(1)
-                servo(87)
-                self.encL(20)
-                servo(20)
-                self.encR(20)
-                servo(120)
-                self.encB(2)
-                servo(87)
-                self.encL(3)
-                servo(20)
-                servo(87)
-                self.encR(3)
-                servo(120)
-                self.encF(1)
-                time.sleep(.1)
-            else:
-                stop()
+        print("Is it clear?")
+        if (self.isClear()):
+            print("Let's boogie!")
+        for x in range(3):
+            if not self.Clear():
+                print "Omgorsh, it's not safe!"
+                break
+            x = 100
+            print('Speed is set to: ' + str(x))
+            servo(87)
+            set_speed(x)
+            self.encF(3)
+            self.encB(8)
+            self.encL(10)
+            servo(20)
+            self.encR(10)
+            servo(120)
+            self.encF(1)
+            servo(87)
+            self.encL(20)
+            servo(20)
+            self.encR(20)
+            servo(120)
+            self.encB(2)
+            servo(87)
+            self.encL(3)
+            servo(20)
+            servo(87)
+            self.encR(3)
+            servo(120)
+            self.encF(1)
+            time.sleep(.1)
+        else:
+            stop()
     # AUTONOMOUS DRIVING
     def nav(self):
         print("Piggy nav")
