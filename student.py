@@ -51,7 +51,7 @@ class GoPiggy(pigo.Pigo):
             print("Let's boogie!")
         for x in range(3):
             if not self.Clear():
-                print "Omgorsh, it's not safe!"
+                print("Omgorsh, it's not safe!")
                 break
             x = 100
             print('Speed is set to: ' + str(x))
