@@ -48,7 +48,7 @@ class GoPiggy(pigo.Pigo):
         ##### WRITE YOUR FIRST PROJECT HERE
         print("Is it clear?")
         for x in range(100, 200, 25):
-            if not self.Clear():
+            if not self.isClear():
                 print("Omgorsh, it's not safe!")
                 break
             print('Speed is set to: ' + str(x))
