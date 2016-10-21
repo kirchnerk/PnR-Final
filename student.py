@@ -104,16 +104,16 @@ class GoPiggy(pigo.Pigo):
                 print("Oh no!")
                 break
         #Check that its clear
-    while True:
-        while self.isClear():
-            #lets go forward just a little bit
-            self.encF(10)
-            #Trying to have my robot not stop if there is a wall and just go left or right
-            answer= self.choosePath()
-            if answer =="left":
-                self.encL(5)
-            elif answer == "right":
-                self.encR(5)
+        while True:
+            while self.isClear():
+                #lets go forward just a little bit
+                self.encF(10)
+                #Trying to have my robot not stop if there is a wall and just go left or right
+                answer= self.choosePath()
+                if answer =="left":
+                    self.encL(5)
+                elif answer == "right":
+                    self.encR(5)
 
 ####################################################
 ############### STATIC FUNCTIONS
