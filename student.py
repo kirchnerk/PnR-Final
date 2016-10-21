@@ -112,7 +112,7 @@ class GoPiggy(pigo.Pigo):
             answer= self.choosePath()
             if answer =="left":
                 self.encL(5)
-            elif answer == "right':
+            elif answer == "right":
                 self.encR(5)
 
 ####################################################
