@@ -96,7 +96,17 @@ class GoPiggy(pigo.Pigo):
     def nav(self):
         print("Piggy nav")
         ##### WRITE YOUR FINAL PROJECT HERE
-
+        #TODO: If while loop fails, check for other paths
+        #Just trying to scan for a wall
+        print("Is it clear?")
+        for x in range(100, 200, 25):
+            if not self.isClear():
+                print("Oh no!")
+                break
+        #Check that its clear
+        while self.isClear():
+            #lets go forward just a little bit
+            self.encF(10)
 
 ####################################################
 ############### STATIC FUNCTIONS
