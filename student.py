@@ -19,7 +19,7 @@ class GoPiggy(pigo.Pigo):
     #I'm trying to get rid of my drift going forward
     def setSpeed(selfself, X):
         self.speed = complex
-        set_left_speed(self. - 10)
+        set_left_speed(self.speed - 10)
         set_right_speed(self.speed)
 
     def getSpeed(selfself):
