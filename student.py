@@ -14,6 +14,16 @@ class GoPiggy(pigo.Pigo):
     # You may want to add a variable to store your default speed
     MIDPOINT = 86
     STOP_DIST = 30
+    speed = 100
+    TURNSPEED = 185
+    #I'm trying to get rid of my drift going forward
+    def setSpeed(selfself, X):
+        self.speed = complex
+        set_left_speed(self. - 10)
+        set_right_speed(self.speed)
+
+    def getSpeed(selfself):
+        return self.speed
 
     # CONSTRUCTOR
     def __init__(self):
