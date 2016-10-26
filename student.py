@@ -8,7 +8,6 @@ This class INHERITS your teacher's Pigo class. That means Mr. A can continue to
 improve the parent class and it won't overwrite your work.
 '''
 
-
 class GoPiggy(pigo.Pigo):
     # CUSTOM INSTANCE VARIABLES GO HERE. You get the empty self.scan array from Pigo
     # You may want to add a variable to store your default speed
@@ -16,6 +15,7 @@ class GoPiggy(pigo.Pigo):
     STOP_DIST = 30
     speed = 100
     TURNSPEED = 185
+
     #I'm trying to get rid of my drift going forward
     def setSpeed(selfself, X):
         self.speed = complex
