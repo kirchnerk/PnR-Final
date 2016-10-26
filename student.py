@@ -13,7 +13,7 @@ class GoPiggy(pigo.Pigo):
     # CUSTOM INSTANCE VARIABLES GO HERE. You get the empty self.scan array from Pigo
     # You may want to add a variable to store your default speed
     MIDPOINT = 86
-    STOP_DIST = 20
+    STOP_DIST = 30
 
     # CONSTRUCTOR
     def __init__(self):
@@ -99,21 +99,17 @@ class GoPiggy(pigo.Pigo):
         #TODO: If while loop fails, check for other paths
         #Just trying to scan for a wall
         print("Is it clear?")
-        for x in range(100, 200, 25):
-            if not self.isClear():
-                print("Oh no!")
-                break
         #Check that its clear
         while True:
             while self.isClear():
                 #lets go forward just a little bit
-                self.encF(10)
+                self.encF(5)
                 #Trying to have my robot not stop if there is a wall and just go left or right
-                answer= self.choosePath()
-                if answer =="left":
-                    self.encL(5)
-                elif answer == "right":
-                    self.encR(5)
+            answer= self.choosePath()
+            if answer =="left":
+                self.encL(4)
+            elif answer == "right":
+                self.encR(4)
 
 ####################################################
 ############### STATIC FUNCTIONS
