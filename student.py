@@ -145,6 +145,7 @@ class GoPiggy(pigo.Pigo):
         for x in option:
             print(" Choice # " + str(count) + " is@ " + str(x) + " degrees. ")
             count += 1
+        #TODO figure out what option is closest to the midpoint
 ####################################################
 ############### STATIC FUNCTIONS
 
