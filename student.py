@@ -131,6 +131,7 @@ class GoPiggy(pigo.Pigo):
             self.scan[x] = us_dist(15)
             time.sleep(.05)
         count = 0
+        option = [0]
         for x in range(self.MIDPOINT-60, self.MIDPOINT+60, 2):
             if self.scan[x] > self.STOP_DIST:
                 count += 1
@@ -138,7 +139,11 @@ class GoPiggy(pigo.Pigo):
                 count=0
             if count> 9:
                 print("Found an option from "+ str(x-20)+" to "+ str(x)+ " degrees")
-
+                count = 0
+                option.append(x)
+        count = 0
+        for x in option:
+            print(" Choice # " + str(count) + " is@ " + str(x) + " degrees. ")
 
 ####################################################
 ############### STATIC FUNCTIONS
