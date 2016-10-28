@@ -11,8 +11,6 @@ import time
 class Pigo(object):
     MIDPOINT = 77
     STOP_DIST = 20
-    RIGHT_SPEED = 200
-    LEFT_SPEED = 200
     scan = [None] * 180
 
     def __init__(self):
@@ -226,13 +224,13 @@ class Pigo(object):
             while True:
                 set_left_speed(self.LEFT_SPEED)
                 set_right_speed(self.RIGHT_SPEED)
-                print("Left: " + str(self.LEFT_SPEED) + "Right: " + str(self.RIGHT_SPEED))
+                print("Left: " + str(self.LEFT_SPEED) + "//  Right: " + str(self.RIGHT_SPEED))
                 self.encF(9)
                 response = input("Reduce left, reduce right or done? (l/r/d): ")
                 if response == 'l':
-                    self.LEFT_SPEED -= 5
+                    self.LEFT_SPEED -= 10
                 elif response == 'r':
-                    self.RIGHT_SPEED -= 7
+                    self.RIGHT_SPEED -= 10
                 else:
                     break
 

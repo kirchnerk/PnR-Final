@@ -15,6 +15,7 @@ class GoPiggy(pigo.Pigo):
     STOP_DIST = 30
     speed = 100
     TURNSPEED = 185
+    scan = [None] * 180
 
     #I'm trying to get rid of my drift going forward
     def setSpeed(selfself, X):
@@ -43,6 +44,7 @@ class GoPiggy(pigo.Pigo):
                 "2": ("Rotate", self.rotate),
                 "3": ("Dance", self.dance),
                 "4": ("Calibrate servo", self.calibrate),
+                "5": ("Test Scan", self.chooseBetter),
                 "q": ("Quit", quit)
                 }
         # loop and print the menu...
@@ -120,6 +122,23 @@ class GoPiggy(pigo.Pigo):
                 self.encL(4)
             elif answer == "right":
                 self.encR(4)
+
+    def chooseBetter(self):
+        self.flushScan()
+        for x in range(self.MIDPOINT-60, self.MIDPOINT+60, 2):
+            servo(x)
+            time.sleep(.1)
+            self.scan[x] = us_dist(15)
+            time.sleep(.05)
+        count = 0
+        for x in range(self.MIDPOINT-60, self.MIDPOINT+60, 2):
+            if self.scan[x] > self.STOP_DIST:
+                count += 1
+            else:
+                count=0
+            if count> 9:
+                print("Found an option from "+ str(x-20)+" to "+ str(x)+ " degrees")
+
 
 ####################################################
 ############### STATIC FUNCTIONS
