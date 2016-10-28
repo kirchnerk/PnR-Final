@@ -144,7 +144,7 @@ class GoPiggy(pigo.Pigo):
         count = 0
         for x in option:
             print(" Choice # " + str(count) + " is@ " + str(x) + " degrees. ")
-
+            count += 1
 ####################################################
 ############### STATIC FUNCTIONS
 
