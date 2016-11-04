@@ -150,43 +150,43 @@ class GoPiggy(pigo.Pigo):
 #########Ben and I shared the code Mr. A (you) helped create.
 ######Below is copied from Ben's code to select a path
 ########I shared him the code above to start this new process
+
         def dataBase(self):
-            menu = {"1": (" Direction " + str(x), self.leftTurn4),
-                    "2": (" Direction " + str(x), self.leftTurn2),
-                    "3": (" Direction " + str(x), self.forward4),
-                    "4": (" Direction " + str(x), self.forward8),
-                    "5": (" Direction " + str(x), self.rightTurn2),
-                    "6": (" Direction " + str(x), self.rightTurn4)
+            menu = {"1": (" Direction Left Four", self.leftTurn4),
+                    "2": (" Direction Left Two", self.leftTurn2),
+                    "3": (" Direction Forward Four", self.forward4),
+                    "4": (" Direction Forward Eight", self.forward8),
+                    "5": (" Direction Right Two", self.rightTurn2),
+                    "6": (" Direction Right Four", self.rightTurn4),
+                    "q": (" Return to testDrive", self.testDrive)
                     }
-            # loop and print the menu..
-        for key in sorted(menu.keys()):
-            print(key + ":" + menu[key][0])
+            # loop and print the menu...
+            for key in sorted(menu.keys()):
+                print(key + ":" + menu[key][0])
             #
-        ans = input("Your selection: ")
-        menu.get(ans, [None, error])[1]()
+            ans = input("Your selection: ")
+            menu.get(ans, [None, error])[1]()
 
+            # ans = input("Your selection: ")
+            # option.get(ans, [None, error])[1]()
 
+        def rightTurn4(self):
+            self.encR(4)
 
-        # ans = input("Your selection: ")
-        # option.get(ans, [None, error])[1]()
+        def rightTurn2(self):
+            self.encR(2)
 
-    def rightTurn4(self):
-        self.encR(4)
+        def leftTurn4(self):
+            self.encL(4)
 
-    def rightTurn2(self):
-        self.encR(2)
+        def leftTurn2(self):
+            self.encL(2)
 
-    def leftTurn4(self):
-        self.encL(4)
+        def forward4(self):
+            self.encF(4)
 
-    def leftTurn2(self):
-        self.encL(2)
-
-    def forward4(self):
-        self.encF(4)
-
-    def forward8(self):
-        self.encF(8)
+        def forward8(self):
+            self.encF(8)
         #TODO figure out what option is closest to the midpoint
 ####################################################
 ############### STATIC FUNCTIONS
