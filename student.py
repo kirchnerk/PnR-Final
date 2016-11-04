@@ -151,7 +151,6 @@ class GoPiggy(pigo.Pigo):
 ######Below is copied from Ben's code to select a path
 ########I shared him the code above to start this new process
         def dataBase(self):
-        def dataBase(self):
             menu = {"1": (" Direction " + str(x), self.leftTurn4),
                     "2": (" Direction " + str(x), self.leftTurn2),
                     "3": (" Direction " + str(x), self.forward4),
