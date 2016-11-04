@@ -17,16 +17,7 @@ class GoPiggy(pigo.Pigo):
     TURNSPEED = 185
     scan = [None] * 180
 
-    #I'm trying to get rid of my drift going forward
-    def setSpeed(selfself, X):
-        self.speed = complex
-        set_left_speed(self.speed - 10)
-        set_right_speed(self.speed)
-
-    def getSpeed(selfself):
-        return self.speed
-
-    # CONSTRUCTOR
+    # CONSTRUCTOR (I moved this to be on the top as you said)
     def __init__(self):
         print("Piggy has be instantiated!")
         # this method makes sure Piggy is looking forward
@@ -35,6 +26,16 @@ class GoPiggy(pigo.Pigo):
         while True:
             self.stop()
             self.handler()
+
+    #I'm trying to get rid of my drift going forward
+    def setSpeed(selfself, X):
+        self.speed = complex
+        #I edited the speed to a decimal as you said
+        set_left_speed(self.speed * 0.8)
+        set_right_speed(self.speed)
+
+    def getSpeed(selfself):
+        return self.speed
 
     ##### HANDLE IT
     def handler(self):
@@ -122,7 +123,7 @@ class GoPiggy(pigo.Pigo):
                 self.encL(4)
             elif answer == "right":
                 self.encR(4)
-
+##### Our new code to make the robot go forward and find openings to not just rely on previous turns
     def chooseBetter(self):
         self.flushScan()
         for x in range(self.MIDPOINT-60, self.MIDPOINT+60, 2):
@@ -145,6 +146,45 @@ class GoPiggy(pigo.Pigo):
         for x in option:
             print(" Choice # " + str(count) + " is@ " + str(x) + " degrees. ")
             count += 1
+#########Ben and I shared the code Mr. A (you) helped create.
+######Below is copied from Ben's code to select a path
+########I shared him the code above to start this new process
+            menu = {"1": (" Direction " + str(x), self.leftTurn4),
+                    "2": (" Direction " + str(x), self.leftTurn2),
+                    "3": (" Direction " + str(x), self.forward4),
+                    "4": (" Direction " + str(x), self.forward8),
+                    "5": (" Direction " + str(x), self.rightTurn2),
+                    "6": (" Direction " + str(x), self.rightTurn4)
+                    }
+            # loop and print the menu...
+        for key in sorted(menu.keys()):
+            print(key + ":" + menu[key][0])
+            #
+        ans = input("Your selection: ")
+        menu.get(ans, [None, error])[1]()
+
+
+
+        # ans = input("Your selection: ")
+        # option.get(ans, [None, error])[1]()
+
+    def rightTurn4(self):
+        self.encR(4)
+
+    def rightTurn2(self):
+        self.encR(2)
+
+    def leftTurn4(self):
+        self.encL(4)
+
+    def leftTurn2(self):
+        self.encL(2)
+
+    def forward4(self):
+        self.encF(4)
+
+    def forward8(self):
+        self.encF(8)
         #TODO figure out what option is closest to the midpoint
 ####################################################
 ############### STATIC FUNCTIONS
