@@ -142,6 +142,7 @@ class GoPiggy(pigo.Pigo):
                 print("Found an option from "+ str(x-20)+" to "+ str(x)+ " degrees")
                 count = 0
                 option.append(x)
+                self.dataBase
         count = 0
         for x in option:
             print(" Choice # " + str(count) + " is@ " + str(x) + " degrees. ")
@@ -149,6 +150,8 @@ class GoPiggy(pigo.Pigo):
 #########Ben and I shared the code Mr. A (you) helped create.
 ######Below is copied from Ben's code to select a path
 ########I shared him the code above to start this new process
+        def dataBase(self):
+        def dataBase(self):
             menu = {"1": (" Direction " + str(x), self.leftTurn4),
                     "2": (" Direction " + str(x), self.leftTurn2),
                     "3": (" Direction " + str(x), self.forward4),
