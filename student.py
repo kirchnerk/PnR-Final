@@ -120,9 +120,9 @@ class GoPiggy(pigo.Pigo):
                 #Trying to have my robot not stop if there is a wall and just go left or right
             answer= self.choosePath()
             if answer =="left":
-                self.encL(4)
+                self.encL(2)
             elif answer == "right":
-                self.encR(4)
+                self.encR(2)
 ##### Our new code to make the robot go forward and find openings to not just rely on previous turns
     def chooseBetter(self):
         self.flushScan()
