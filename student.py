@@ -126,6 +126,7 @@ class GoPiggy(pigo.Pigo):
 ##### Our new code to make the robot go forward and find openings to not just rely on previous turns
     def chooseBetter(self):
         self.flushScan()
+        ###Tryig to speed up the scan
         for x in range(self.MIDPOINT-60, self.MIDPOINT+60, 5):
             servo(x)
             time.sleep(.1)
