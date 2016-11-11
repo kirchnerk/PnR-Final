@@ -126,14 +126,14 @@ class GoPiggy(pigo.Pigo):
 ##### Our new code to make the robot go forward and find openings to not just rely on previous turns
     def chooseBetter(self):
         self.flushScan()
-        for x in range(self.MIDPOINT-60, self.MIDPOINT+60, 2):
+        for x in range(self.MIDPOINT-60, self.MIDPOINT+60, 5):
             servo(x)
             time.sleep(.1)
             self.scan[x] = us_dist(15)
             time.sleep(.05)
         count = 0
         option = [0]
-        for x in range(self.MIDPOINT-60, self.MIDPOINT+60, 2):
+        for x in range(self.MIDPOINT-60, self.MIDPOINT+60, 5):
             if self.scan[x] > self.STOP_DIST:
                 count += 1
             else:
