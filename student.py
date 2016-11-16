@@ -16,6 +16,8 @@ class GoPiggy(pigo.Pigo):
     speed = 100
     TURNSPEED = 185
     scan = [None] * 180
+    LEFT_SPEED = 190
+    RIGHT_SPEED = 190
 
     # CONSTRUCTOR (I moved this to be on the top as you said)
     def __init__(self):
