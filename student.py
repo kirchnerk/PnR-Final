@@ -120,7 +120,7 @@ class GoPiggy(pigo.Pigo):
         self.setSpeed(self.LEFT_SPEED * self.TURN_MODIFIER,
                       self.RIGHT_SPEED * self.TURN_MODIFIER)
         right_rot()
-        right_rotate(deg * self.TIME_PER_DEGREE)
+        time.sleep(deg * self.TIME_PER_DEGREE)
         self.stop()
         self.setSpeed(self.LEFT_SPEED * self.RIGHT_SPEED)
 
@@ -134,7 +134,7 @@ class GoPiggy(pigo.Pigo):
         #do turn stuff
         left_rot()
         #use our experiments to calculate the time needed to turn
-        left_rotate(deg * self.TIME_PER_DEGREE)
+        time.sleep(deg * self.TIME_PER_DEGREE)
         self.stop()
         self.setSpeed(self.LEFT_SPEED * self.RIGHT_SPEED)
 
