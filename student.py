@@ -33,16 +33,6 @@ class GoPiggy(pigo.Pigo):
             self.stop()
             self.handler()
 
-    #I'm trying to get rid of my drift going forward
-    def setSpeed(selfself, X):
-        self.speed = complex
-        #I edited the speed to a decimal as you said
-        set_left_speed(self.speed * 0.8)
-        set_right_speed(self.speed)
-
-    def getSpeed(selfself):
-        return self.speed
-
     ##### HANDLE IT
     def handler(self):
         ## This is a DICTIONARY, it's a list with custom index values
@@ -138,7 +128,7 @@ class GoPiggy(pigo.Pigo):
         self.stop()
         self.setSpeed(self.LEFT_SPEED * self.RIGHT_SPEED)
 
-    def setspeed(self, left, right):
+    def setSpeed(self, left, right):
         print("Left speed: " + str(left))
         print("Right speed: " +str(right))
         set_left_speed(int(left))
