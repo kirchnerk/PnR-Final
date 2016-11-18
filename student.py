@@ -141,9 +141,9 @@ class GoPiggy(pigo.Pigo):
     def setspeed(self, left, right):
         print("Left speed: " + str(left))
         print("Right speed: " +str(right))
-        set_left_speed(left)
-        set_right_speed(right)
-        time.sleep(0.5)
+        set_left_speed(int(left))
+        set_right_speed(int(right))
+        time.sleep(0.05)
 
 
     # AUTONOMOUS DRIVING
