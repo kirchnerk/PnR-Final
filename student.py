@@ -19,6 +19,10 @@ class GoPiggy(pigo.Pigo):
     LEFT_SPEED = 190
     RIGHT_SPEED = 190
 
+    turn_track = 0
+    TIME_PER_DEGREE = 0.00466667
+    TURN_MODIFIER = 1
+
     # CONSTRUCTOR (I moved this to be on the top as you said)
     def __init__(self):
         print("Piggy has be instantiated!")
@@ -107,6 +111,41 @@ class GoPiggy(pigo.Pigo):
             self.encF(1)
             self.encR(5)
             time.sleep(.1)
+
+##### MY NEW TURN METHODS because enR and encL just don't cut it
+        #takes a number of degrees and turns accordingly
+    def turnR(self, deg):
+        self.turn_track += deg
+        print("The exit is " + str(self.turn_track) + "degrees away.")
+        self.setSpeed(self.LEFT_SPEED * self.TURN_MODIFIER,
+                      self.RIGHT_SPEED * self.TURN_MODIFIER)
+        right_rot()
+        right_rotate(deg * self.TIME_PER_DEGREE)
+        self.stop()
+        self.setSpeed(self.LEFT_SPEED * self.RIGHT_SPEED)
+
+    def turnL(self, tt):
+        ##adjust the tracker so we know how many degrees away our exit is
+        self.turn_track -= deg
+        print("The exit is " + str(self.turn_track) + "degrees away.")
+        #slow done for more exact turning
+        self.setSpeed(self.LEFT_SPEED * self.TURN_MODIFIER,
+                      self.RIGHT_SPEED * self.TURN_MODIFIER)
+        #do turn stuff
+        left_rot()
+        #use our experiments to calculate the time needed to turn
+        left_rotate(deg * self.TIME_PER_DEGREE)
+        self.stop()
+        self.setSpeed(self.LEFT_SPEED * self.RIGHT_SPEED)
+
+    def setspeed(self, left, right):
+        print("Left speed: " + str(left))
+        print("Right speed: " +str(right))
+        set_left_speed(left)
+        set_right_speed(right)
+        time.sleep(0.5)
+
+
     # AUTONOMOUS DRIVING
     def nav(self):
         print("Piggy nav")
@@ -122,9 +161,9 @@ class GoPiggy(pigo.Pigo):
                 #Trying to have my robot not stop if there is a wall and just go left or right
             answer= self.choosePath()
             if answer =="left":
-                self.encL(2)
+                self.turnL(30)
             elif answer == "right":
-                self.encR(2)
+                self.turnR(30)
 ##### Our new code to make the robot go forward and find openings to not just rely on previous turns
     def chooseBetter(self):
         self.flushScan()
