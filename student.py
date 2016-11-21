@@ -23,6 +23,7 @@ class GoPiggy(pigo.Pigo):
     TIME_PER_DEGREE = 0.00466667
     TURN_MODIFIER = 1
 
+    ##This method starts my robot
     # CONSTRUCTOR (I moved this to be on the top as you said)
     def __init__(self):
         print("Piggy has be instantiated!")
@@ -33,6 +34,7 @@ class GoPiggy(pigo.Pigo):
             self.stop()
             self.handler()
 
+    ###this method gives me the menu when I type in python3 student.py
     ##### HANDLE IT
     def handler(self):
         ## This is a DICTIONARY, it's a list with custom index values
@@ -51,6 +53,7 @@ class GoPiggy(pigo.Pigo):
         ans = input("Your selection: ")
         menu.get(ans, [None, error])[1]()
 
+    ##This method is my dance method
     # A SIMPLE DANCE ALGORITHM
     def dance(self):
         print("Piggy dance")
@@ -104,6 +107,7 @@ class GoPiggy(pigo.Pigo):
 
 ##### MY NEW TURN METHODS because enR and encL just don't cut it
         #takes a number of degrees and turns accordingly
+    #this method defines turning right through degrees
     def turnR(self, deg):
         self.turn_track += deg
         print("The exit is " + str(self.turn_track) + "degrees away.")
@@ -113,7 +117,7 @@ class GoPiggy(pigo.Pigo):
         time.sleep(deg * self.TIME_PER_DEGREE)
         self.stop()
         self.setSpeed(self.LEFT_SPEED * self.RIGHT_SPEED)
-
+    #this method defines turning left through degrees
     def turnL(self, tt):
         ##adjust the tracker so we know how many degrees away our exit is
         self.turn_track -= deg
@@ -128,6 +132,7 @@ class GoPiggy(pigo.Pigo):
         self.stop()
         self.setSpeed(self.LEFT_SPEED * self.RIGHT_SPEED)
 
+    ##adjusts robot motors when turning right or left
     def setSpeed(self, left, right):
         print("Left speed: " + str(left))
         print("Right speed: " +str(right))
@@ -137,24 +142,36 @@ class GoPiggy(pigo.Pigo):
 
 
     # AUTONOMOUS DRIVING
+    #Central logic loop of my navigation
     def nav(self):
         print("Piggy nav")
         ##### WRITE YOUR FINAL PROJECT HERE
+        ##main app loop
         #TODO: If while loop fails, check for other paths
         #Just trying to scan for a wall
         print("Is it clear?")
         #Check that its clear
         while True:
+            ###I copied this code from the board in class
+            ####I'm trying to speed up my robot
+            if(self.isClear()):
+                print("It looks clear ahead of me. I'm going to cruise")
+                self.cruise()
+            #TODO:Insert a method that backs away from a wall if it's too close
+            #TODO:self.backUpCheck
+            #TODO: Replace choosePath with a method that's smarter
             while self.isClear():
                 #lets go forward just a little bit
                 self.encF(5)
                 #Trying to have my robot not stop if there is a wall and just go left or right
             answer= self.choosePath()
+            #TODO: Replace '45' with a variable representing a smarter option
             if answer =="left":
                 self.turnL(30)
             elif answer == "right":
                 self.turnR(30)
 ##### Our new code to make the robot go forward and find openings to not just rely on previous turns
+        ###this method is my scanning method to make sure my robot doesn't smash into things or get stuck
     def chooseBetter(self):
         self.flushScan()
         ###Tryig to speed up the scan
@@ -175,10 +192,11 @@ class GoPiggy(pigo.Pigo):
                 count = 0
                 option.append(x)
                 self.dataBase()
+
 #########Ben and I shared the code Mr. A (you) helped create.
 ######Below is copied from Ben's code to select a path
 ########I shared him the code above to start this new process
-
+            #this method is basically a remote control for my robot
     def dataBase(self):
         menu = {"1": (" Direction Left Four", self.leftTurn4),
                 "2": (" Direction Left Two", self.leftTurn2),
