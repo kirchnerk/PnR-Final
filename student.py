@@ -146,7 +146,7 @@ class GoPiggy(pigo.Pigo):
     def cruise(self):
         # do i check is Clear before?
         servo(self.MIDPOINT)
-        time.sleep(0.5))
+        time.sleep(0.5)
         fwd()
         while True:
             if us_dist(15) < self.STOP_DIST:
@@ -155,7 +155,6 @@ class GoPiggy(pigo.Pigo):
         self.stop()
 
     def nav(self):
-
         ##main app loop
         while True:
             ###I copied this code from the board in class
