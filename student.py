@@ -51,7 +51,7 @@ class GoPiggy(pigo.Pigo):
             print(key + ":" + menu[key][0])
         #
         ans = input("Your selection: ")
-        menu.get(ans, [None, error])[1]()
+        menu.get(ans,[None, error])[1]()
 
     ##This method is my dance method
     # A SIMPLE DANCE ALGORITHM
@@ -143,14 +143,20 @@ class GoPiggy(pigo.Pigo):
 
     # AUTONOMOUS DRIVING
     #Central logic loop of my navigation
+    def cruise(self):
+        # do i check is Clear before?
+        servo(self.MIDPOINT)
+        time.sleep(0.5))
+        fwd()
+        while True:
+            if us_dist(15) < self.STOP_DIST:
+                break
+            time.sleep(0.5)
+        self.stop()
+
     def nav(self):
-        print("Piggy nav")
-        ##### WRITE YOUR FINAL PROJECT HERE
+
         ##main app loop
-        #TODO: If while loop fails, check for other paths
-        #Just trying to scan for a wall
-        print("Is it clear?")
-        #Check that its clear
         while True:
             ###I copied this code from the board in class
             ####I'm trying to speed up my robot
@@ -160,16 +166,14 @@ class GoPiggy(pigo.Pigo):
             #TODO:Insert a method that backs away from a wall if it's too close
             #TODO:self.backUpCheck
             #TODO: Replace choosePath with a method that's smarter
-            while self.isClear():
-                #lets go forward just a little bit
-                self.encF(5)
-                #Trying to have my robot not stop if there is a wall and just go left or right
+
             answer= self.choosePath()
             #TODO: Replace '45' with a variable representing a smarter option
             if answer =="left":
                 self.turnL(30)
             elif answer == "right":
                 self.turnR(30)
+
 ##### Our new code to make the robot go forward and find openings to not just rely on previous turns
         ###this method is my scanning method to make sure my robot doesn't smash into things or get stuck
     def chooseBetter(self):
