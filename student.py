@@ -29,6 +29,7 @@ class GoPiggy(pigo.Pigo):
         print("Piggy has be instantiated!")
         # this method makes sure Piggy is looking forward
         #self.calibrate()
+        self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
         # let's use an event-driven model, make a handler of sorts to listen for "events"
         while True:
             self.stop()
@@ -43,7 +44,7 @@ class GoPiggy(pigo.Pigo):
                 "2": ("Rotate", self.rotate),
                 "3": ("Dance", self.dance),
                 "4": ("Calibrate servo", self.calibrate),
-                "5": ("Test Scan", self.chooseBetter),
+                "5": ("Database Commands", self.dataBase),
                 "q": ("Quit", quit)
                 }
         # loop and print the menu...
@@ -107,6 +108,7 @@ class GoPiggy(pigo.Pigo):
 
 ##### MY NEW TURN METHODS because enR and encL just don't cut it
         #takes a number of degrees and turns accordingly
+
     #this method defines turning right through degrees
     def turnR(self, deg):
         self.turn_track += deg
@@ -116,9 +118,11 @@ class GoPiggy(pigo.Pigo):
         right_rot()
         time.sleep(deg * self.TIME_PER_DEGREE)
         self.stop()
-        self.setSpeed(self.LEFT_SPEED * self.RIGHT_SPEED)
+        self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
+
+
     #this method defines turning left through degrees
-    def turnL(self, tt, deg):
+    def turnL(self, deg):
         ##adjust the tracker so we know how many degrees away our exit is
         self.turn_track -= deg
         print("The exit is " + str(self.turn_track) + "degrees away.")
@@ -130,7 +134,7 @@ class GoPiggy(pigo.Pigo):
         #use our experiments to calculate the time needed to turn
         time.sleep(deg * self.TIME_PER_DEGREE)
         self.stop()
-        self.setSpeed(self.LEFT_SPEED * self.RIGHT_SPEED)
+        self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
 
     ##adjusts robot motors when turning right or left
     def setSpeed(self, left, right):
@@ -144,14 +148,14 @@ class GoPiggy(pigo.Pigo):
     # AUTONOMOUS DRIVING
     #Central logic loop of my navigation
     def cruise(self):
-        # do i check is Clear before?
+        # do I check is Clear before?
         servo(self.MIDPOINT)
         time.sleep(0.5)
         fwd()
         while True:
             if us_dist(15) < self.STOP_DIST:
                 break
-            time.sleep(0.5)
+            time.sleep(0.05)
         self.stop()
 
     def nav(self):
