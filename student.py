@@ -42,7 +42,7 @@ class GoPiggy(pigo.Pigo):
                 "2": ("Rotate", self.rotate),
                 "3": ("Dance", self.dance),
                 "4": ("Calibrate servo", self.calibrate),
-                "5": ("Test Scan", self.chooseBetter),
+                "5": ("Remote Control", self.chooseBetter),
                 "q": ("Quit", quit)
                 }
         # loop and print the menu...
@@ -121,7 +121,7 @@ class GoPiggy(pigo.Pigo):
         ##adjust the tracker so we know how many degrees away our exit is
         self.turn_track -= deg
         print("The exit is " + str(self.turn_track) + "degrees away.")
-        #slow done for more exact turning
+        #slow down for more exact turning
         self.setSpeed(self.LEFT_SPEED * self.TURN_MODIFIER,
                       self.RIGHT_SPEED * self.TURN_MODIFIER)
         #do turn stuff
