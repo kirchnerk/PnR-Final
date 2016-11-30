@@ -7,7 +7,8 @@ from gopigo import *
 This class INHERITS your teacher's Pigo class. That means Mr. A can continue to
 improve the parent class and it won't overwrite your work.
 '''
-
+# TODO:self.backUpCheck
+# TODO: Replace choosePath with a method that's smarter
 class GoPiggy(pigo.Pigo):
     # CUSTOM INSTANCE VARIABLES GO HERE. You get the empty self.scan array from Pigo
     # You may want to add a variable to store your default speed
@@ -15,7 +16,7 @@ class GoPiggy(pigo.Pigo):
     STOP_DIST = 30
     TURNSPEED = 185
     scan = [None] * 180
-    LEFT_SPEED = 190
+    LEFT_SPEED = 170
     RIGHT_SPEED = 190
 
     turn_track = 0
@@ -117,7 +118,7 @@ class GoPiggy(pigo.Pigo):
         self.stop()
         self.setSpeed(self.LEFT_SPEED * self.RIGHT_SPEED)
     #this method defines turning left through degrees
-    def turnL(self, tt):
+    def turnL(self, tt, deg):
         ##adjust the tracker so we know how many degrees away our exit is
         self.turn_track -= deg
         print("The exit is " + str(self.turn_track) + "degrees away.")
@@ -161,12 +162,8 @@ class GoPiggy(pigo.Pigo):
             if(self.isClear()):
                 print("It looks clear ahead of me. I'm going to cruise")
                 self.cruise()
-            #TODO:Insert a method that backs away from a wall if it's too close
-            #TODO:self.backUpCheck
-            #TODO: Replace choosePath with a method that's smarter
 
             answer= self.choosePath()
-            #TODO: Replace '45' with a variable representing a smarter option
             if answer =="left":
                 self.turnL(30)
             elif answer == "right":
