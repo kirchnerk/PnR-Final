@@ -16,8 +16,8 @@ class GoPiggy(pigo.Pigo):
     STOP_DIST = 30
     TURNSPEED = 185
     scan = [None] * 180
-    LEFT_SPEED = 170
-    RIGHT_SPEED = 190
+    LEFT_SPEED = 190
+    RIGHT_SPEED = int(LEFT_SPEED *.9)
 
     turn_track = 0
     TIME_PER_DEGREE = 0.00466667
