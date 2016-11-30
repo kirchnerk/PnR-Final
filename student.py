@@ -200,20 +200,30 @@ class GoPiggy(pigo.Pigo):
 ########I shared him the code above to start this new process
             #this method is basically a remote control for my robot
     def dataBase(self):
-        menu = {"1": (" Direction Left Four", self.encL(4),
-                "2": (" Direction Left Two", self.encL(2),
-                "3": (" Direction Forward Four", self.encF(4),
-                "4": (" Direction Forward Eight", self.encF(8),
-                "5": (" Direction Right Two", self.encR(2),
-                "6": (" Direction Right Four", self.encR(4)
-                }
+        menu = {"1": (" Direction Left Four", self.leftTurn4),
+                "2": (" Direction Left Two", self.leftTurn2),
+                "3": (" Direction Forward Four", self.forward4),
+                "4": (" Direction Forward Eight", self.forward8),
+                "5": (" Direction Right Two", self.rightTurn2),
+                "6": (" Direction Right Four", self.rightTurn4)}
         # loop and print the menu...
         for key in sorted(menu.keys()):
             print(key + ":" + menu[key][0])
-        #
         ans = input("Your selection: ")
         menu.get(ans, [None, error])[1]()
-
+        ####BELOW is the Movements my robot will do when selecting an option.  FOR EXAMPLE: Direction Left Four is self.encL(4)
+        def rightTurn4(self):
+            self.encR(4)
+        def rightTurn2(self):
+            self.encR(2)
+        def leftTurn4(self):
+            self.encL(4)
+        def leftTurn2(self):
+            self.encL(2)
+        def forward4(self):
+            self.encF(4)
+        def forward8(self):
+            self.encF(8)
         # ans = input("Your selection: ")
         # option.get(ans, [None, error])[1]()
 ####################################################
@@ -222,11 +232,8 @@ class GoPiggy(pigo.Pigo):
 def error():
     print('Error in input')
 
-
 def quit():
     raise SystemExit
-
-
 ####################################################
 ######## THE ENTIRE APP IS THIS ONE LINE....
 g = GoPiggy()
