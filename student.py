@@ -146,7 +146,6 @@ class GoPiggy(pigo.Pigo):
 
 
     # AUTONOMOUS DRIVING
-    #Central logic loop of my navigation
     def cruise(self):
         # do I check is Clear before?
         servo(self.MIDPOINT)
@@ -158,6 +157,7 @@ class GoPiggy(pigo.Pigo):
             time.sleep(0.05)
         self.stop()
 
+    # Central logic loop of my navigation
     def nav(self):
         ##main app loop
         while True:
