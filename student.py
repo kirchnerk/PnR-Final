@@ -283,26 +283,28 @@ class GoPiggy(pigo.Pigo):
                 "3": (" Direction Forward Four", self.forward4),
                 "4": (" Direction Forward Eight", self.forward8),
                 "5": (" Direction Right Two", self.rightTurn2),
-                "6": (" Direction Right Four", self.rightTurn4)}
+                "6": (" Direction Right Four", self.rightTurn4)
+                }
         # loop and print the menu...
         for key in sorted(menu.keys()):
             print(key + ":" + menu[key][0])
+        #
         ans = input("Your selection: ")
         menu.get(ans, [None, error])[1]()
-        #BELOW is the Movements my robot will do when selecting an option
-        # FOR EXAMPLE: Direction Left Four is self.encL(4)
-        def rightTurn4(self):
-            self.encR(4)
-        def rightTurn2(self):
-            self.encR(2)
-        def leftTurn4(self):
-            self.encL(4)
-        def leftTurn2(self):
-            self.encL(2)
-        def forward4(self):
-            self.encF(4)
-        def forward8(self):
-            self.encF(8)
+        # ans = input("Your selection: ")
+        # option.get(ans, [None, error])[1]()
+    def rightTurn4(self):
+        self.encR(4)
+    def rightTurn2(self):
+        self.encR(2)
+    def leftTurn4(self):
+        self.encL(4)
+    def leftTurn2(self):
+        self.encL(2)
+    def forward4(self):
+        self.encF(4)
+    def forward8(self):
+        self.encF(8)
         # ans = input("Your selection: ")
         # option.get(ans, [None, error])[1]()
 ####################################################
