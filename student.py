@@ -33,11 +33,11 @@ class GoPiggy(pigo.Pigo):
         # let's use an event-driven model, make a handler of sorts to listen for "events"
         while True:
             self.stop()
-            self.handler()
+            self.menu()
 
-    #this method gives me the menu when I type in python3 student.py
+    #This method gives me the menu when I type in python3 student.py
     # HANDLE IT
-    def handler(self):
+    def menu(self):
         # This is a DICTIONARY, it's a list with custom index values
         menu = {"1": ("Navigate forward", self.nav),
                 "2": ("Rotate", self.rotate),
@@ -108,7 +108,7 @@ class GoPiggy(pigo.Pigo):
 ##### MY NEW TURN METHODS because enR and encL just don't cut it
         #takes a number of degrees and turns accordingly
 
-    #this method defines turning right through degrees
+    #This method defines turning right through degrees
     def turnR(self, deg):
         self.turn_track += deg
         print("The exit is " + str(self.turn_track) + "degrees away.")
@@ -119,8 +119,7 @@ class GoPiggy(pigo.Pigo):
         self.stop()
         self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
 
-
-    #this method defines turning left through degrees
+    #This method defines turning left through degrees
     def turnL(self, deg):
         #adjust the tracker so we know how many degrees away our exit is
         self.turn_track -= deg
@@ -135,16 +134,34 @@ class GoPiggy(pigo.Pigo):
         self.stop()
         self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
 
-    #adjusts robot motors when turning right or left
+    #Adjusts robot motors when turning right or left
     def setSpeed(self, left, right):
         print("Left speed: " + str(left))
         print("Right speed: " +str(right))
         set_left_speed(int(left))
         set_right_speed(int(right))
+        #Below slows down robot before crashing into something
         time.sleep(0.05)
 
+    #Central logic loop of my navigation
+    def nav(self):
+        #main app loop
+        print("Parent nav")
+        while True:
+            #I copied this code from the board in class
+            #I'm trying to speed up my robot
+            if(self.isClear()):
+                print("It looks clear ahead of me. I'm going to cruise")
+                self.cruise()
+            #IF I HAD TO STOP, PICK A BETTER PATH
+            turn_target = self.kenny()
 
-    #AUTONOMOUS DRIVING
+            if turn_target < 0:
+                self.turnR(abs(turn_target))
+            else:
+                self.turnL(turn_target)
+
+    # AUTONOMOUS DRIVING
     def cruise(self):
         # do I check is Clear before?
         servo(self.MIDPOINT)
@@ -156,48 +173,68 @@ class GoPiggy(pigo.Pigo):
             time.sleep(0.05)
         self.stop()
 
-    #Central logic loop of my navigation
-    def nav(self):
-        #main app loop
-        while True:
-            #I copied this code from the board in class
-            #I'm trying to speed up my robot
-            if(self.isClear()):
-                print("It looks clear ahead of me. I'm going to cruise")
-                self.cruise()
+    #Back up method reverses the robot so if the robot gets too close to something
+    def backUp(self):
+        if us_dist(15) < 10:
+            print("Too close. Backing up for half a second")
+            bwd()
+            time.sleep(.5)
+            self.stop()
 
-            answer= self.choosePath()
-            if answer =="left":
-                self.turnL(30)
-            elif answer == "right":
-                self.turnR(30)
+    #Our new code to make the robot go forward and find openings to not just rely on previous turns
+    #this method is my scanning method to make sure my robot doesn't smash into things or get stuck
+    #################################
+    ### THE KENNY METHOD OF SCANNING - experimental
 
-        #Our new code to make the robot go forward and find openings to not just rely on previous turns
-        #this method is my scanning method to make sure my robot doesn't smash into things or get stuck
+
+
+    def wideScan(self):
+        #dump all values that might be in our list
+        self.flushScan()
+        #YOU DECIDE: What increment should we use when scanning?
+        for x in range(self.MIDPOINT-60, self.MIDPOINT+60, +2):
+            # move the sensor that's mounted to our servo
+            servo(x)
+            #give some time for the servo to move
+            time.sleep(.1)
+            #take our first measurement
+            scan1 = us_dist(15)
+            time.sleep(.1)
+            #double check the distance
+            scan2 = us_dist(15)
+            #if I found a different distance the second time....
+            if abs(scan1 - scan2) > 2:
+                scan3 = us_dist(15)
+                time.sleep(.1)
+                #take another scan and average? the three together - you decide
+                scan1 = (scan1+scan2+scan3)/3
+            self.scan[x] = scan1
+            print("Degree: "+str(x)+", distance: "+str(scan1))
+            time.sleep(.01)
+
     def chooseBetter(self):
         self.flushScan()
-        #Tryig to speed up the scan
-        for x in range(self.MIDPOINT-60, self.MIDPOINT+60, 5):
+        # Tryig to speed up the scan
+        for x in range(self.MIDPOINT - 60, self.MIDPOINT + 60, 5):
             servo(x)
             time.sleep(.1)
             self.scan[x] = us_dist(15)
             time.sleep(.05)
         count = 0
         option = [0]
-        for x in range(self.MIDPOINT-60, self.MIDPOINT+60, 5):
+        for x in range(self.MIDPOINT - 60, self.MIDPOINT + 60, 5):
             if self.scan[x] > self.STOP_DIST:
                 count += 1
             else:
-                count=0
-            if count> 9:
-                print("Found an option from "+ str(x-20)+" to "+ str(x)+ " degrees")
+                count = 0
+            if count > 9:
+                print("Found an option from " + str(x - 20) + " to " + str(x) + " degrees")
                 count = 0
                 option.append(x)
                 self.dataBase()
-
-#Ben and I shared the code Mr. A (you) helped create, copied from Ben's code is the selecting path part
-#I shared him the code above to start this new process
-#this method is a remote control for my robot
+    #Ben and I shared the code Mr. A (you) helped create, copied from Ben's code is the selecting path part
+    #I shared him the code above to start this new process
+    #this method is a remote control for my robot
     def dataBase(self):
         menu = {"1": (" Direction Left Four", self.leftTurn4),
                 "2": (" Direction Left Two", self.leftTurn2),
