@@ -213,7 +213,7 @@ class GoPiggy(pigo.Pigo):
             time.sleep(.01)
 
     def chooseBetter(self):
-        self.flushScan()
+        self.wideScan()
         # Tryig to speed up the scan
         for x in range(self.MIDPOINT - 60, self.MIDPOINT + 60, 5):
             servo(x)
