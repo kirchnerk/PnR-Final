@@ -154,7 +154,7 @@ class GoPiggy(pigo.Pigo):
                 print("It looks clear ahead of me. I'm going to cruise")
                 self.cruise()
             #IF I HAD TO STOP, PICK A BETTER PATH
-            turn_target = self.chooseBetter()
+            turn_target = self.kenny()
 
             if turn_target < 0:
                 self.turnR(abs(turn_target))
@@ -186,7 +186,68 @@ class GoPiggy(pigo.Pigo):
     #################################
     ### THE KENNY METHOD OF SCANNING - experimental
 
+    def kenny(self):
+        #Activate our scanner!
+        self.wideScan()
+        # count will keep track of contigeous positive readings
+        count = 0
+        # list of all the open paths we detect
+        option = [0]
+        #YOU DECIDE: What do we add to STOP_DIST when looking for a path fwd?
+        SAFETY_BUFFER = 30
+        #YOU DECIDE: what increment do you have your wideScan set to?
+        INC = 2
 
+        ###########################
+        ######### BUILD THE OPTIONS
+        #loop from the 60 deg right of our middle to 60 deg left of our middle
+        for x in range(self.MIDPOINT - 60, self.MIDPOINT + 60):
+            # ignore all blank spots in the list
+            if self.scan[x]:
+                # add 30 if you want, this is an extra safety buffer
+                if self.scan[x] > (self.STOP_DIST + SAFETY_BUFFER):
+                    count += 1
+                # if this reading isn't safe...
+                else:
+                    # aww nuts, I have to reset the count, this path won't work
+                    count = 0
+                #YOU DECIDE: Is 16 degrees the right size to consider as a safe window?
+                if count > (16 / INC) - 1:
+                    # SUCCESS! I've found enough positive readings in a row
+                    print("---FOUND OPTION: from " + str(x - 16) + " to " + str(x))
+                    #set the counter up again for next time
+                    count = 0
+                    #add this option to the list
+                    option.append(x - 8)
+
+        ####################################
+        ############## PICK FROM THE OPTIONS - experimental
+
+        #The biggest angle away from our midpoint we could possibly see is 90
+        bestoption = 90
+        #the turn it would take to get us aimed back toward the exit - experimental
+        ideal = -self.turn_track
+        print("\nTHINKING. Ideal turn: " + str(ideal) + " degrees\n")
+        # x will iterate through all the angles of our path options
+        for x in option:
+            # skip our filler option
+            if x != 0:
+                # the change to the midpoint needed to aim at this path
+                turn = self.MIDPOINT - x
+                # state our logic so debugging is easier
+                print("\nPATH @  " + str(x) + " degrees means a turn of " + str(turn))
+                # if this option is closer to our ideal than our current best option...
+                if abs(ideal - bestoption) > abs(ideal - turn):
+                    # store this turn as the best option
+                    bestoption = turn
+        if bestoption > 0:
+            input("\nABOUT TO TURN RIGHT BY: " + str(bestoption) + " degrees")
+        else:
+            input("\nABOUT TO TURN LEFT BY: " + str(abs(bestoption)) + " degrees")
+        return bestoption
+
+    #########################################
+    ### SCANNER - move head to take sensor readings
 
     def wideScan(self):
         #dump all values that might be in our list
@@ -212,26 +273,7 @@ class GoPiggy(pigo.Pigo):
             print("Degree: "+str(x)+", distance: "+str(scan1))
             time.sleep(.01)
 
-    def chooseBetter(self):
-        self.wideScan()
-        # Tryig to speed up the scan
-        for x in range(self.MIDPOINT - 60, self.MIDPOINT + 60, 5):
-            servo(x)
-            time.sleep(.1)
-            self.scan[x] = us_dist(15)
-            time.sleep(.05)
-        count = 0
-        option = [0]
-        for x in range(self.MIDPOINT - 60, self.MIDPOINT + 60, 5):
-            if self.scan[x] > self.STOP_DIST:
-                count += 1
-            else:
-                count = 0
-            if count > 9:
-                print("Found an option from " + str(x - 20) + " to " + str(x) + " degrees")
-                count = 0
-                option.append(x)
-                self.dataBase()
+
     #Ben and I shared the code Mr. A (you) helped create, copied from Ben's code is the selecting path part
     #I shared him the code above to start this new process
     #this method is a remote control for my robot
