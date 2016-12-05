@@ -196,7 +196,7 @@ class GoPiggy(pigo.Pigo):
         #YOU DECIDE: What do we add to STOP_DIST when looking for a path fwd?
         SAFETY_BUFFER = 30
         #YOU DECIDE: what increment do you have your wideScan set to?
-        INC = 5
+        INC = 2
 
         ###########################
         ######### BUILD THE OPTIONS
@@ -253,7 +253,7 @@ class GoPiggy(pigo.Pigo):
         #dump all values that might be in our list
         self.flushScan()
         #YOU DECIDE: What increment should we use when scanning?
-        for x in range(self.MIDPOINT-60, self.MIDPOINT+60, +5):
+        for x in range(self.MIDPOINT-60, self.MIDPOINT+60, +2):
             # move the sensor that's mounted to our servo
             servo(x)
             #give some time for the servo to move
