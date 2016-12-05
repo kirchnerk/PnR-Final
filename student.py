@@ -33,11 +33,11 @@ class GoPiggy(pigo.Pigo):
         # let's use an event-driven model, make a handler of sorts to listen for "events"
         while True:
             self.stop()
-            self.handler()
+            self.menu()
 
     #This method gives me the menu when I type in python3 student.py
     # HANDLE IT
-    def handler(self):
+    def menu(self):
         # This is a DICTIONARY, it's a list with custom index values
         menu = {"1": ("Navigate forward", self.nav),
                 "2": ("Rotate", self.rotate),
@@ -143,18 +143,6 @@ class GoPiggy(pigo.Pigo):
         #Below slows down robot before crashing into something
         time.sleep(0.05)
 
-    #AUTONOMOUS DRIVING
-    def cruise(self):
-        # do I check is Clear before?
-        servo(self.MIDPOINT)
-        time.sleep(0.5)
-        fwd()
-        while True:
-            if us_dist(15) < self.STOP_DIST:
-                break
-            time.sleep(0.05)
-        self.stop()
-
     #Central logic loop of my navigation
     def nav(self):
         #main app loop
@@ -173,6 +161,26 @@ class GoPiggy(pigo.Pigo):
             else:
                 self.turnL(turn_target)
 
+    # AUTONOMOUS DRIVING
+    def cruise(self):
+        # do I check is Clear before?
+        servo(self.MIDPOINT)
+        time.sleep(0.5)
+        fwd()
+        while True:
+            if us_dist(15) < self.STOP_DIST:
+                break
+            time.sleep(0.05)
+        self.stop()
+
+    #Back up method reverses the robot so if the robot gets too close to something
+    def backUp(self):
+        if us_dist(15) < 10:
+            print("Too close. Backing up for half a second")
+            bwd()
+            time.sleep(.5)
+            self.stop()
+
     #Our new code to make the robot go forward and find openings to not just rely on previous turns
     #this method is my scanning method to make sure my robot doesn't smash into things or get stuck
     #################################
@@ -188,7 +196,7 @@ class GoPiggy(pigo.Pigo):
         #YOU DECIDE: What do we add to STOP_DIST when looking for a path fwd?
         SAFETY_BUFFER = 30
         #YOU DECIDE: what increment do you have your wideScan set to?
-        INC = 2
+        INC = 5
 
         ###########################
         ######### BUILD THE OPTIONS
@@ -237,6 +245,33 @@ class GoPiggy(pigo.Pigo):
         else:
             input("\nABOUT TO TURN LEFT BY: " + str(abs(bestoption)) + " degrees")
         return bestoption
+
+    #########################################
+    ### SCANNER - move head to take sensor readings
+
+    def wideScan(self):
+        #dump all values that might be in our list
+        self.flushScan()
+        #YOU DECIDE: What increment should we use when scanning?
+        for x in range(self.MIDPOINT-60, self.MIDPOINT+60, +5):
+            # move the sensor that's mounted to our servo
+            servo(x)
+            #give some time for the servo to move
+            time.sleep(.1)
+            #take our first measurement
+            scan1 = us_dist(15)
+            time.sleep(.1)
+            #double check the distance
+            scan2 = us_dist(15)
+            #if I found a different distance the second time....
+            if abs(scan1 - scan2) > 2:
+                scan3 = us_dist(15)
+                time.sleep(.1)
+                #take another scan and average? the three together - you decide
+                scan1 = (scan1+scan2+scan3)/3
+            self.scan[x] = scan1
+            print("Degree: "+str(x)+", distance: "+str(scan1))
+            time.sleep(.01)
 
 
     #Ben and I shared the code Mr. A (you) helped create, copied from Ben's code is the selecting path part
