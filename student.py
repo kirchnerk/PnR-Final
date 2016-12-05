@@ -154,7 +154,7 @@ class GoPiggy(pigo.Pigo):
                 print("It looks clear ahead of me. I'm going to cruise")
                 self.cruise()
             #IF I HAD TO STOP, PICK A BETTER PATH
-            turn_target = self.kenny()
+            turn_target = self.chooseBetter()
 
             if turn_target < 0:
                 self.turnR(abs(turn_target))
