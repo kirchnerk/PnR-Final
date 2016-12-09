@@ -44,17 +44,17 @@ class GoPiggy(pigo.Pigo):
 
     def getSpeed(selfself):
         return self.speed
-'''
-    #Adjusts robot motors when turning right or left
-    #Newer setSpeed
-    def setSpeed(self, left, right):
-        print("Left speed: " + str(left))
-        print("Right speed: " +str(right))
-        set_left_speed(int(left))
-        set_right_speed(int(right))
-        #Below slows down robot before crashing into something
-        time.sleep(0.05)
-'''
+    '''
+        #Adjusts robot motors when turning right or left
+        #Newer setSpeed
+        def setSpeed(self, left, right):
+            print("Left speed: " + str(left))
+            print("Right speed: " +str(right))
+            set_left_speed(int(left))
+            set_right_speed(int(right))
+            #Below slows down robot before crashing into something
+            time.sleep(0.05)
+    '''
 
     # HANDLE IT
     # This method gives me the menu when I type in python3 student.py
@@ -146,59 +146,59 @@ class GoPiggy(pigo.Pigo):
                 self.encL(2)
             elif answer == "right":
                 self.encR(2)
-'''
-#Central logic loop of my navigation
-    #Newer nav
-    def nav(self):
-        #main app loop
-        print("Parent nav")
-        while True:
-            #I copied this code from the board in class
-            #I'm trying to speed up my robot
-            if(self.isClear()):
-                print("It looks clear ahead of me. I'm going to cruise")
-                self.cruise()
-            #IF I HAD TO STOP, PICK A BETTER PATH
-            turn_target = self.kenny()
+    '''
+    #Central logic loop of my navigation
+        #Newer nav
+        def nav(self):
+            #main app loop
+            print("Parent nav")
+            while True:
+                #I copied this code from the board in class
+                #I'm trying to speed up my robot
+                if(self.isClear()):
+                    print("It looks clear ahead of me. I'm going to cruise")
+                    self.cruise()
+                #IF I HAD TO STOP, PICK A BETTER PATH
+                turn_target = self.kenny()
 
-            if turn_target < 0:
-                self.turnR(abs(turn_target))
-            else:
-                self.turnL(turn_target)
-'''
+                if turn_target < 0:
+                    self.turnR(abs(turn_target))
+                else:
+                    self.turnL(turn_target)
+    '''
 
-'''
-##### MY NEW TURN METHODS because enR and encL just don't cut it
-        #takes a number of degrees and turns accordingly
+    '''
+    ##### MY NEW TURN METHODS because enR and encL just don't cut it
+            #takes a number of degrees and turns accordingly
 
-    #This method defines turning right through degrees
-    def turnR(self, deg):
-        self.turn_track += deg
-        print("The exit is " + str(self.turn_track) + "degrees away.")
-        self.setSpeed(self.LEFT_SPEED * self.TURN_MODIFIER,
-                      self.RIGHT_SPEED * self.TURN_MODIFIER)
-        right_rot()
-        time.sleep(deg * self.TIME_PER_DEGREE)
-        self.stop()
-        self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
+        #This method defines turning right through degrees
+        def turnR(self, deg):
+            self.turn_track += deg
+            print("The exit is " + str(self.turn_track) + "degrees away.")
+            self.setSpeed(self.LEFT_SPEED * self.TURN_MODIFIER,
+                          self.RIGHT_SPEED * self.TURN_MODIFIER)
+            right_rot()
+            time.sleep(deg * self.TIME_PER_DEGREE)
+            self.stop()
+            self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
 
-    #This method defines turning left through degrees
-    def turnL(self, deg):
-        #adjust the tracker so we know how many degrees away our exit is
-        self.turn_track -= deg
-        print("The exit is " + str(self.turn_track) + "degrees away.")
-        #slow down for more exact turning
-        self.setSpeed(self.LEFT_SPEED * self.TURN_MODIFIER,
-                      self.RIGHT_SPEED * self.TURN_MODIFIER)
-        #do turn stuff
-        left_rot()
-        #use our experiments to calculate the time needed to turn
-        time.sleep(deg * self.TIME_PER_DEGREE)
-        self.stop()
-        self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
-'''
+        #This method defines turning left through degrees
+        def turnL(self, deg):
+            #adjust the tracker so we know how many degrees away our exit is
+            self.turn_track -= deg
+            print("The exit is " + str(self.turn_track) + "degrees away.")
+            #slow down for more exact turning
+            self.setSpeed(self.LEFT_SPEED * self.TURN_MODIFIER,
+                          self.RIGHT_SPEED * self.TURN_MODIFIER)
+            #do turn stuff
+            left_rot()
+            #use our experiments to calculate the time needed to turn
+            time.sleep(deg * self.TIME_PER_DEGREE)
+            self.stop()
+            self.setSpeed(self.LEFT_SPEED, self.RIGHT_SPEED)
+    '''
 
-##### Our code to make the robot go forward and find openings to not just rely on previous turns
+    ##### Our code to make the robot go forward and find openings to not just rely on previous turns
     #This method is my scanning method to make sure my robot doesn't smash into things or get stuck
     #################################
     def chooseBetter(self):
@@ -222,7 +222,7 @@ class GoPiggy(pigo.Pigo):
                 option.append(x)
                 self.dataBase()
 
-"""
+    """
     #Our new code to make the robot go forward and find openings to not just rely on previous turns
     #this method is my scanning method to make sure my robot doesn't smash into things or get stuck
     #################################
@@ -286,9 +286,9 @@ class GoPiggy(pigo.Pigo):
         else:
             input("\nABOUT TO TURN LEFT BY: " + str(abs(bestoption)) + " degrees")
         return bestoption
-"""
+    """
 
-""" Code I'm not using, but had in previous code
+    """ Code I'm not using, but had in previous code
     # AUTONOMOUS DRIVING
     def cruise(self):
         # do I check is Clear before?
@@ -308,11 +308,11 @@ class GoPiggy(pigo.Pigo):
             bwd()
             time.sleep(.5)
             self.stop()
-"""
+    """
 
-#########Ben and I shared the code Mr. A (you) helped create.
-######Below is copied from Ben's code to select a path
-########I shared him the code above to start this new process
+    #########Ben and I shared the code Mr. A (you) helped create.
+    ######Below is copied from Ben's code to select a path
+    ########I shared him the code above to start this new process
     #This method is a remote control for my robot
     def dataBase(self):
         menu = {"1": (" Direction Left Four", self.leftTurn4),
@@ -341,8 +341,8 @@ class GoPiggy(pigo.Pigo):
         self.encF(4)
     def forward8(self):
         self.encF(8)
-####################################################
-############### STATIC FUNCTIONS
+    ####################################################
+    ############### STATIC FUNCTIONS
 
 def error():
     print('Error in input')
