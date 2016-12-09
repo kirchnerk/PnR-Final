@@ -19,6 +19,7 @@ ChooseBetter was the method that went through the maze and completed the final p
 Another method that I included that Ben Foltz and I worked on was a remote control method called dataBase.
 This method was called Test Scan in the menu.  Once it started, my robot would scan the area then give options to choose from to move.
 Text highlighted in blue are codes I worked on for this final project in Programming and Robotics that I did not end up using.
+Text in grey are also comments and help anyone understand how my code works in more detail.
 Overall, my code was able to complete the maze in 2 min and 42 seconds.
 This project gave me a great understanding of programming and proved that you need to be an effective problem solver in the real world.
 
