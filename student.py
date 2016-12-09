@@ -56,7 +56,7 @@ class GoPiggy(pigo.Pigo):
         time.sleep(0.05)
 '''
 
-    ##### HANDLE IT
+    # HANDLE IT
     # This method gives me the menu when I type in python3 student.py
     def handler(self):
         ## This is a DICTIONARY, it's a list with custom index values
