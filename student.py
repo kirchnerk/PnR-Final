@@ -58,7 +58,7 @@ class GoPiggy(pigo.Pigo):
 
     ##### HANDLE IT
     # This method gives me the menu when I type in python3 student.py
-    def menu(self):
+    def dataBase(self):
         ## This is a DICTIONARY, it's a list with custom index values
         # You may change the menu if you'd like
         menu = {"1": ("Navigate forward", self.nav),
